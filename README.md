@@ -69,10 +69,11 @@ The helper names the sandbox `claude-<project-dir>` and re-attaches if it alread
 
 ### Manual (without the helper)
 
-Apply the kit to a new sandbox:
+Apply the kit to a new sandbox (the agent name must match the kit's `name:`,
+`claude-vscode`):
 
 ```bash
-sbx run claude . --kit /path/to/sbx-kits-vscode
+sbx run claude-vscode . --kit /path/to/sbx-kits-vscode
 ```
 
 ...or add it to an already-running sandbox:

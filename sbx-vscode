@@ -51,10 +51,12 @@ echo "Workspace : $WORKSPACE"
 echo "Sandbox   : $NAME"
 echo "Kit       : $KIT_DIR"
 
+# The agent name for a kind: sandbox kit must match the kit's `name:` field
+# (claude-vscode), not the built-in "claude" agent.
 if [ "$DETACHED" = true ]; then
   echo "Mode      : detached"
-  exec sbx run -d claude "$WORKSPACE" --name "$NAME" --kit "$KIT_DIR"
+  exec sbx run -d claude-vscode "$WORKSPACE" --name "$NAME" --kit "$KIT_DIR"
 else
   echo "Mode      : attached (Ctrl-C to detach)"
-  exec sbx run claude "$WORKSPACE" --name "$NAME" --kit "$KIT_DIR"
+  exec sbx run claude-vscode "$WORKSPACE" --name "$NAME" --kit "$KIT_DIR"
 fi
