@@ -29,8 +29,6 @@ Then:
 
 Claude Code is already installed — sign in with your Claude account and start building. 🎉
 
-
-
 ## What you get
 
 - Full VS Code over a secure tunnel (browser **or** desktop)
