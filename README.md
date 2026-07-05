@@ -5,7 +5,7 @@
 [![Claude Code](https://img.shields.io/badge/Claude-Code-D97757)](https://www.anthropic.com/claude-code)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache_2.0-green.svg)](LICENSE)
 
-A [Docker Sandboxes](https://docs.docker.com/ai/sandboxes/) [Kit](https://docs.docker.com/ai/sandboxes/customize/kits/) (`kind: sandbox`) that runs **VS Code** with the **Claude Code** extension inside an isolated, firewalled sandbox and exposes it over a **VS Code tunnel** — so you can drive it from your local desktop VS Code (via **Remote - Tunnels**) or from `vscode.dev` in a browser.
+A [Docker Sandboxes](https://docs.docker.com/ai/sandboxes/) [Kit](https://docs.docker.com/ai/sandboxes/customize/kits/) (`kind: sandbox`) that runs **VS Code** with the **Claude Code** extension inside an isolated, firewalled sandbox and exposes it over a **VS Code tunnel** so you can drive it from your local desktop VS Code (via **Remote - Tunnels**) or from `vscode.dev` in a browser.
 
 Build agentic tasks in a throwaway sandbox, with a full editor, without touching your host.
 
