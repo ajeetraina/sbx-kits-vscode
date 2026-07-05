@@ -156,7 +156,7 @@ sbx kit validate .
 
 ### Governed environments
 
-Under a **centrally governed** `sbx` setup (Docker Hub org policy — `sbx policy ls` shows `Governance  Managed by <org>` and remote-synced rules), the corporate policy **takes precedence over and deactivates all local rules** — including this kit's `network.allowedDomains`. You can confirm this: `sbx policy ls --include-inactive` shows the kit's rule (`kit:<sandbox>`) with status `inactive — corporate policy takes precedence`.
+Under a **centrally governed** `sbx` setup (Docker Hub org policy — `sbx policy ls` shows `Governance  Managed by <org>` and remote-synced rules), the corporate policy **takes precedence over and deactivates all local rules** — including this kit's `caps.network.allow` domains. You can confirm this: `sbx policy ls --include-inactive` shows the kit's rule (`kit:<sandbox>`) with status `inactive — corporate policy takes precedence`.
 
 In that case the kit's allow-list has no effect, and the VS Code tunnel is denied because its relay domains aren't in the org policy. A local `sbx policy allow network …` won't help — it's deactivated too. **You must add the tunnel domains to the Hub org network policy**, then let it sync:
 

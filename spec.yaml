@@ -1,4 +1,4 @@
-schemaVersion: "1"
+schemaVersion: "2"
 kind: sandbox
 name: claude-vscode
 displayName: VSCode with Claude Code
@@ -10,38 +10,36 @@ sandbox:
   entrypoint:
     run: ["code", "tunnel", "--accept-server-license-terms"]
 
-network:
-  serviceDomains:
-    api.anthropic.com: anthropic
-    console.anthropic.com: anthropic
-  serviceAuth:
-    anthropic:
-      headerName: x-api-key
-      valueFormat: "%s"
-  allowedDomains:
-    # Anthropic / Claude
-    - "claude.com:443"
-    # VS Code download + update CDN
-    - "go.microsoft.com:443"
-    - "update.code.visualstudio.com:443"
-    - "vscode.download.prss.microsoft.com:443"
-    - "main.vscode-cdn.net:443"
-    # Claude Code VS Code extension (marketplace assets)
-    - "anthropic.gallery.vsassets.io:443"
-    - "anthropic.gallerycdn.vsassets.io:443"
-    # VS Code tunnel relay + GitHub device authentication
-    - "vscode.dev:443"
-    - "global.rel.tunnels.api.visualstudio.com:443"
-    - "*.rel.tunnels.api.visualstudio.com:443"
-    - "github.com:443"
+caps:
+  network:
+    allow:
+      # Anthropic / Claude
+      - claude.com:443
+      - api.anthropic.com:443
+      # VS Code download + update CDN
+      - go.microsoft.com:443
+      - update.code.visualstudio.com:443
+      - vscode.download.prss.microsoft.com:443
+      - main.vscode-cdn.net:443
+      # Claude Code VS Code extension (marketplace assets)
+      - anthropic.gallery.vsassets.io:443
+      - anthropic.gallerycdn.vsassets.io:443
+      # VS Code tunnel relay + GitHub device authentication
+      - vscode.dev:443
+      - global.rel.tunnels.api.visualstudio.com:443
+      - "*.rel.tunnels.api.visualstudio.com:443"
+      - github.com:443
 
 credentials:
-  sources:
-    anthropic:
-      env:
-        - ANTHROPIC_API_KEY
+  - service: anthropic
+    apiKey:
+      name: ANTHROPIC_API_KEY
+      inject:
+        - domain: api.anthropic.com
+          header: x-api-key
+          format: "%s"
 
-memory: |
+agentContext: |
   ## VS Code tunnel sandbox
 
   This sandbox runs `code tunnel`. The Claude Code VS Code extension
