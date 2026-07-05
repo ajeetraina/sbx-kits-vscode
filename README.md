@@ -7,6 +7,8 @@
 
 Run **VS Code** with the **Claude Code** extension inside an isolated [Docker Sandbox](https://docs.docker.com/ai/sandboxes/), and open it from your browser or desktop VS Code over a tunnel. Nothing touches your host.
 
+![Demo: launching the sandbox and getting a VS Code tunnel](docs/demo.gif)
+
 ## Quick start
 
 ```bash
