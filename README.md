@@ -31,7 +31,19 @@ A **GitHub account** is required to authenticate the VS Code tunnel. An **Anthro
 
 ## Install
 
-Clone the kit:
+### Option A — use the published kit directly (no clone)
+
+The kit is published as an OCI artifact, so you can reference it straight from
+the registry — nothing to clone or build:
+
+```bash
+sbx run claude-vscode . --kit ajeetraina777/sbx-vscode-kit:latest
+```
+
+`sbx` pulls both the kit spec and the `ajeetraina777/sbx-vscode` image
+automatically. Inspect it first with `sbx kit inspect ajeetraina777/sbx-vscode-kit:latest`.
+
+### Option B — clone the repo (to use the helper script or hack on the kit)
 
 ```bash
 git clone https://github.com/ajeetraina/sbx-kits-vscode /path/to/sbx-kits-vscode

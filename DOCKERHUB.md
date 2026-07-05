@@ -36,3 +36,21 @@ Add these repository secrets under **Settings → Secrets and variables → Acti
 
 To pin a version, add a `git tag` step to the workflow and tag the image with the
 release version alongside `latest`.
+
+## Publishing the kit as an OCI artifact
+
+Separately from the container image, the whole kit (spec + files) can be pushed
+to a registry so users can reference it without cloning the repo. Use a
+**different repo** from the image so the two artifacts don't collide:
+
+```bash
+sbx kit push . docker.io/ajeetraina777/sbx-vscode-kit:latest
+```
+
+Note the full registry host (`docker.io/…`) is required. Users then run:
+
+```bash
+sbx run claude-vscode . --kit ajeetraina777/sbx-vscode-kit:latest
+```
+
+Inspect a published kit with `sbx kit inspect ajeetraina777/sbx-vscode-kit:latest`.
