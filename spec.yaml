@@ -1,0 +1,54 @@
+schemaVersion: "1"
+kind: sandbox
+name: claude-vscode
+displayName: VSCode with Claude Code
+description: "Runs VS Code inside a Docker Sandbox with the Claude Code extension pre-installed and exposed over a VS Code tunnel, so you can attach from your local desktop VS Code (Remote - Tunnels) or vscode.dev."
+
+sandbox:
+  image: "ajeetraina777/sbx-vscode"
+  aiFilename: CLAUDE.md
+  entrypoint:
+    run: ["code", "tunnel", "--accept-server-license-terms"]
+
+network:
+  serviceDomains:
+    api.anthropic.com: anthropic
+    console.anthropic.com: anthropic
+  serviceAuth:
+    anthropic:
+      headerName: x-api-key
+      valueFormat: "%s"
+  allowedDomains:
+    # Anthropic / Claude
+    - "claude.com:443"
+    # VS Code download + update CDN
+    - "go.microsoft.com:443"
+    - "update.code.visualstudio.com:443"
+    - "vscode.download.prss.microsoft.com:443"
+    - "main.vscode-cdn.net:443"
+    # Claude Code VS Code extension (marketplace assets)
+    - "anthropic.gallery.vsassets.io:443"
+    - "anthropic.gallerycdn.vsassets.io:443"
+    # VS Code tunnel relay + GitHub device authentication
+    - "vscode.dev:443"
+    - "global.rel.tunnels.api.visualstudio.com:443"
+    - "*.rel.tunnels.api.visualstudio.com:443"
+    - "github.com:443"
+
+credentials:
+  sources:
+    anthropic:
+      env:
+        - ANTHROPIC_API_KEY
+
+memory: |
+  ## VS Code tunnel sandbox
+
+  This sandbox runs `code tunnel`. The Claude Code VS Code extension
+  (`anthropic.claude-code`) is already installed on the server, so you don't
+  need to install it again.
+
+  Connect from your desktop VS Code via the **Remote - Tunnels** extension, or
+  open the printed `https://vscode.dev/tunnel/<name>/...` URL in a browser. The
+  first time you use Claude Code in a fresh sandbox you'll be asked to log in
+  with your Claude account.

@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+#
+# sbx-vscode — create a Docker Sandbox running VS Code + Claude Code and start a
+# VS Code tunnel in a project directory.
+#
+# Usage:
+#   sbx-vscode [-d] [PROJECT_DIR]
+#
+#   -d            Create the sandbox detached (background) instead of attaching.
+#   PROJECT_DIR   Directory to open in the sandbox (default: current directory).
+#
+# Examples:
+#   sbx-vscode                    # sandbox + tunnel in the current directory
+#   sbx-vscode /path/to/project   # sandbox + tunnel in another directory
+#   sbx-vscode -d                 # create in the background, don't attach
+#
+set -euo pipefail
+
+DETACHED=false
+if [ "${1:-}" = "-d" ]; then
+  DETACHED=true
+  shift
+fi
+
+# The directory containing this script is the kit directory (holds spec.yaml).
+KIT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# Resolve the workspace to an absolute path.
+WORKSPACE="${1:-$PWD}"
+if [ ! -d "$WORKSPACE" ]; then
+  echo "error: '$WORKSPACE' is not a directory" >&2
+  exit 1
+fi
+WORKSPACE="$(cd "$WORKSPACE" && pwd)"
+
+# Sandbox name: claude-<lowercased, hyphenated basename of the workspace>.
+SLUG="$(basename "$WORKSPACE" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]\{1,\}/-/g; s/^-//; s/-$//')"
+NAME="claude-${SLUG}"
+
+# If a sandbox with this name already exists, re-attach (or leave it running).
+if sbx ls -q 2>/dev/null | grep -qx "$NAME"; then
+  if [ "$DETACHED" = true ]; then
+    echo "Sandbox '$NAME' already exists — leaving it running."
+    exit 0
+  fi
+  echo "Re-attaching to existing sandbox '$NAME'..."
+  exec sbx run --name "$NAME"
+fi
+
+echo "Workspace : $WORKSPACE"
+echo "Sandbox   : $NAME"
+echo "Kit       : $KIT_DIR"
+
+if [ "$DETACHED" = true ]; then
+  echo "Mode      : detached"
+  exec sbx run -d claude "$WORKSPACE" --name "$NAME" --kit "$KIT_DIR"
+else
+  echo "Mode      : attached (Ctrl-C to detach)"
+  exec sbx run claude "$WORKSPACE" --name "$NAME" --kit "$KIT_DIR"
+fi
