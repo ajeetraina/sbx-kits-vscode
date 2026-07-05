@@ -140,10 +140,6 @@ sbx kit validate .
 - **`code: command not found`** — the image didn't build the VS Code `.deb`; rebuild `image/Dockerfile`.
 - **Claude Code asks for login every time** — expected on a freshly-created sandbox; state lives inside the container.
 
-## License
 
-[Apache-2.0](LICENSE) © Ajeet Singh Raina
 
-## Acknowledgements
 
-Inspired by [`TriticeaeToolbox/sbx-vscode`](https://github.com/TriticeaeToolbox/sbx-vscode) and Docker's [`sbx-kits-contrib`](https://github.com/docker/sbx-kits-contrib).
