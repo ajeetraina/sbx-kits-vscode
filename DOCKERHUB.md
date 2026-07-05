@@ -50,7 +50,7 @@ sbx kit push . docker.io/ajeetraina777/sbx-vscode-kit:latest
 Note the full registry host (`docker.io/…`) is required. Users then run:
 
 ```bash
-sbx run claude-vscode . --kit ajeetraina777/sbx-vscode-kit:latest
+sbx run claude-vscode . --kit docker.io/ajeetraina777/sbx-vscode-kit:latest
 ```
 
-Inspect a published kit with `sbx kit inspect ajeetraina777/sbx-vscode-kit:latest`.
+Inspect a published kit with `sbx kit inspect docker.io/ajeetraina777/sbx-vscode-kit:latest`.

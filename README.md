@@ -37,11 +37,15 @@ The kit is published as an OCI artifact, so you can reference it straight from
 the registry — nothing to clone or build:
 
 ```bash
-sbx run claude-vscode . --kit ajeetraina777/sbx-vscode-kit:latest
+sbx run claude-vscode . --kit docker.io/ajeetraina777/sbx-vscode-kit:latest
 ```
 
 `sbx` pulls both the kit spec and the `ajeetraina777/sbx-vscode` image
-automatically. Inspect it first with `sbx kit inspect ajeetraina777/sbx-vscode-kit:latest`.
+automatically. Inspect it first with `sbx kit inspect docker.io/ajeetraina777/sbx-vscode-kit:latest`.
+
+> The full registry host (`docker.io/`) is required — unlike the Docker CLI,
+> `sbx` does not auto-prepend it, so a bare `ajeetraina777/…` reference fails
+> with `dial tcp: lookup ajeetraina777: no such host`.
 
 ### Option B — clone the repo (to use the helper script or hack on the kit)
 
