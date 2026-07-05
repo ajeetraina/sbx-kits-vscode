@@ -140,6 +140,29 @@ sbx kit validate .
 - **Tunnel never prints a device code** — the sandbox couldn't reach `github.com`. Confirm the allow-list in `spec.yaml` and that `sbx login` succeeded.
 - **`code: command not found`** — the image didn't build the VS Code `.deb`; rebuild `image/Dockerfile`.
 - **Claude Code asks for login every time** — expected on a freshly-created sandbox; state lives inside the container.
+- **Tunnel blocked by network policy** (e.g. `403 Forbidden … Blocked by network policy: domain global.rel.tunnels.api.visualstudio.com:443 … blocked by default deny policy`) — see **Governed environments** below.
+
+### Governed environments
+
+Under a **centrally governed** `sbx` setup (Docker Hub org policy — `sbx policy ls` shows `Governance  Managed by <org>` and remote-synced rules), the corporate policy **takes precedence over and deactivates all local rules** — including this kit's `network.allowedDomains`. You can confirm this: `sbx policy ls --include-inactive` shows the kit's rule (`kit:<sandbox>`) with status `inactive — corporate policy takes precedence`.
+
+In that case the kit's allow-list has no effect, and the VS Code tunnel is denied because its relay domains aren't in the org policy. A local `sbx policy allow network …` won't help — it's deactivated too. **You must add the tunnel domains to the Hub org network policy**, then let it sync:
+
+```
+**.tunnels.api.visualstudio.com:443     # tunnel relays (global.rel.*, regional) + management API
+vscode.dev:443
+# on first connect, `code tunnel` also downloads the VS Code server build:
+update.code.visualstudio.com:443
+vscode.download.prss.microsoft.com:443
+main.vscode-cdn.net:443
+```
+
+Use the **double-star** `**.` wildcard for multi-level subdomains — a single `*.` won't match `global.rel.tunnels.api.visualstudio.com`. Then confirm the rules went active and restart the sandbox:
+
+```bash
+sbx policy ls | grep -i visualstudio
+sbx run --name <sandbox>
+```
 
 
 
