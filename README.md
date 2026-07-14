@@ -25,9 +25,9 @@ sbx run claude-vscode . --kit docker.io/ajeetraina777/sbx-vscode-kit:latest
 Then:
 
 1. Open the **https://github.com/login/device** link it prints and enter the code.
-2. Open the **`https://vscode.dev/tunnel/…`** URL — or attach from desktop VS Code with the [Remote - Tunnels](https://marketplace.visualstudio.com/items?itemName=ms-vscode.remote-server) extension.
+2. Open the **`https://vscode.dev/tunnel/…`** URL or attach from desktop VS Code with the [Remote - Tunnels](https://marketplace.visualstudio.com/items?itemName=ms-vscode.remote-server) extension.
 
-Claude Code is already installed — sign in with your Claude account and start building. 🎉
+Claude Code is already installed, sign in with your Claude account and start building. 🎉
 
 ## What you get
 
