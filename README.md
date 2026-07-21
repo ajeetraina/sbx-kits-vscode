@@ -16,7 +16,7 @@ Run **VS Code** with the **Claude Code** extension inside an isolated [Docker Sa
 sbx login
 
 # 2. Set your Anthropic API key (used for the sandbox's network auth)
-export ANTHROPIC_API_KEY=sk-ant-...
+echo "$ANTHROPIC_API_KEY" | sbx secret set -g anthropic
 
 # 3. Launch — pulls the kit + image automatically, no clone needed
 sbx run claude-vscode . --kit docker.io/ajeetraina777/sbx-vscode-kit:latest
