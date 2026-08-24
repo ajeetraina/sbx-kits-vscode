@@ -6,11 +6,9 @@ description: "Runs VS Code inside a Docker Sandbox with the Claude Code extensio
 
 sandbox:
   image: "ajeetraina777/sbx-vscode"
-  aiFilename: CLAUDE.md
-  entrypoint:
-    run: ["code", "tunnel", "--accept-server-license-terms"]
+  entrypoint: ["code", "tunnel", "--accept-server-license-terms"]
 
-caps:
+permissions:
   network:
     allow:
       # Anthropic / Claude
@@ -39,14 +37,16 @@ credentials:
           header: x-api-key
           format: "%s"
 
-agentContext: |
-  ## VS Code tunnel sandbox
+agentInstructions:
+  filename: CLAUDE.md
+  content: |
+    ## VS Code tunnel sandbox
 
-  This sandbox runs `code tunnel`. The Claude Code VS Code extension
-  (`anthropic.claude-code`) is already installed on the server, so you don't
-  need to install it again.
+    This sandbox runs `code tunnel`. The Claude Code VS Code extension
+    (`anthropic.claude-code`) is already installed on the server, so you don't
+    need to install it again.
 
-  Connect from your desktop VS Code via the **Remote - Tunnels** extension, or
-  open the printed `https://vscode.dev/tunnel/<name>/...` URL in a browser. The
-  first time you use Claude Code in a fresh sandbox you'll be asked to log in
-  with your Claude account.
+    Connect from your desktop VS Code via the **Remote - Tunnels** extension, or
+    open the printed `https://vscode.dev/tunnel/<name>/...` URL in a browser. The
+    first time you use Claude Code in a fresh sandbox you'll be asked to log in
+    with your Claude account.
